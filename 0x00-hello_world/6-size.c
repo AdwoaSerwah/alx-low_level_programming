@@ -2,9 +2,7 @@
  * main - Entry point
  *
  * Description: This program prints the size of various types
- * on the computer it is compiled and run, including char, int,
- * long int, long long int, and float.
- *
+ * on the computer it is compiled and run.
  * Return: Always 0 (Success)
  */
 

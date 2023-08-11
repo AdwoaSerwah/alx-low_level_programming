@@ -4,9 +4,8 @@
  * main - Entry point
  *
  * Description: This program prints exactly
- * "Programming is like building a multilingual puzzle
+ * "\"Programming is like building a multilingual puzzle"
  * which is followed by a new line using the puts function
- *
  * Return: Always 0 (Success)
  */
 int main(void)
