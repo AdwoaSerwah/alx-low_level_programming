@@ -1,12 +1,19 @@
 #include "main.h"
-
 /**
- * _putchar - Writes a character to standard output (stdout)
- * @c: The character to be displayed
+ * main - Entry point of the program.
  *
- * Return: A character
+ * Description: This program prints _putchar followed by a new line.
+ * Return: Always 0 (Success)
  */
-int _putchar(char c)
+int main(void)
 {
-	return (write(1, &c, 1));
+	char text[] = "_putchar\n";
+	int i = 0;
+
+	while (text[i] != '\0')
+	{
+		putchar(text[i]);
+		i++;
+	}
+	return (0);
 }
