@@ -1,21 +1,12 @@
 #include "main.h"
 
 /**
- * main - Entry point
+ * _putchar - Writes a character to standard output (stdout)
+ * @c: The character to be displayed
  *
- * Description: This program prints _putchar, followed by a newline
- * Return: Always 0 (Success)
+ * Return: A character
  */
-int main(void)
+int _putchar(char c)
 {
-	putchar('_');
-	putchar('p');
-	putchar('u');
-	putchar('t');
-	putchar('c');
-	putchar('h');
-	putchar('a');
-	putchar('r');
-	putchar('\n');
-	return (0);
+	return (write(1, &c, 1));
 }
