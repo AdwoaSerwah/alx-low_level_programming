@@ -22,7 +22,7 @@ int main(void)
 		second = next;
 	}
 
-	printf("Sum of even-valued Fibonacci terms below 4,000,000: %ld\n", sum);
+	printf("%ld\n", sum);
 
 	return (0);
 }
