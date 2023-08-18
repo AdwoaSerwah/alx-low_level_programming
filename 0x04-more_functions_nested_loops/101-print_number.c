@@ -15,7 +15,7 @@ void print_number(int n)
 		n = -n;
 	}
 
-	while (temp > 9)
+	while (temp > 9 || temp < -9)
 	{
 		temp /= 10;
 		divisor *= 10;
