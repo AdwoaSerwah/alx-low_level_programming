@@ -24,10 +24,12 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	{
 		if (i >= size_r - 1)
 			return (0);
-		sum = (len1 ? n1[--len1] - '0' : 0) + (len2 ? n2[--len2] - '0' : 0) + carry;
+		sum = (len1 ? n1[--len1] - '0' : 0) +
+			(len2 ? n2[--len2] - '0' : 0) + carry;
 		carry = sum / 10;
 		r[i++] = sum % 10 + '0';
 	}
+	r[i] = '\0';
 	while (j < i / 2)
 	{
 		char temp = r[j];
