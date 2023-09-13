@@ -1,12 +1,12 @@
 #include "3-calc.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
 
 /**
- * get_op_func - Returns a pointer to the function that corresponds
- *	         to the operator given as a parameter.
- *
- * @s: The operator passed as an argument
- *
- * Return: A pointer to the corresponding function, or NULL if not found.
+ * get_op_func - selects the correct function to perform the operation
+ * @s: operator passed as an argument to the program
+ * Return: pointer to the function that corresponds to the operator
  */
 int (*get_op_func(char *s))(int, int)
 {
@@ -22,11 +22,11 @@ int (*get_op_func(char *s))(int, int)
 
 	while (ops[i].op != NULL)
 	{
-		if (ops[i].op[0] == s[0] && s[1] == '\0')
+		if (*(ops[i].op) == *s && s[1] == '\0')
 			return (ops[i].f);
 		i++;
 	}
-
-	return (NULL);
+	printf("Error\n");
+	exit(99);
 }
 
