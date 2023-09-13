@@ -4,6 +4,8 @@
 
 /**
  * main - Entry point of the program.
+ * @argc: Number of command line arguments
+ * @argv: Command line arguments array
  *
  * Return: Always 0 (Success)
  */
