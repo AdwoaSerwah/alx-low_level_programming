@@ -25,7 +25,7 @@ void print_all(const char * const format, ...)
 		}
 		else if (format[i] == 'i')
 		{
-			printf("%s%d", separator, va_arg(args, int));
+			printf("%s%i", separator, va_arg(args, int));
 		}
 		else if (format[i] == 'f')
 		{
