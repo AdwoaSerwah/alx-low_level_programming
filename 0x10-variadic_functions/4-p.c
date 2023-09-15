@@ -3,48 +3,51 @@
 #include "variadic_functions.h"
 
 /**
- * print_all - Print a variable number of arguments based on a format string.
- * @format: Format string indicating the types of arguments
+ * print_all - Prints anything
+ * @format: List of types of arguments passed to the function
+ *
+ * Return: Nothing
  */
 void print_all(const char * const format, ...)
 {
 	va_list args;
-	int i = 0;
 	char *separator = "";
+	int i = 0;
 
 	va_start(args, format);
-
 	while (format && format[i])
 	{
-		char c = format[i];
+		int print_flag = 1;
 
-		if (c == 'c')
+		if (format[i] == 'c')
 		{
 			printf("%s%c", separator, va_arg(args, int));
 		}
-		else if (c == 'i')
+		else if (format[i] == 'i')
 		{
-			printf("%s%d", separator, va_arg(args, int));
+			printf("%s%i", separator, va_arg(args, int));
 		}
-		else if (c == 'f')
+		else if (format[i] == 'f')
 		{
 			printf("%s%f", separator, va_arg(args, double));
 		}
-		else if (c == 's')
+		else if (format[i] == 's')
 		{
 			char *str = va_arg(args, char *);
 
 			if (str == NULL)
-				printf("%s(nil)", separator);
-			else
-				printf("%s%s", separator, str);
+				str = "(nil)";
+			printf("%s%s", separator, str);
+		}
+		else
+		{
+			print_flag = 0;
 		}
 
-		separator = ", ";
+		if (print_flag)
+			separator = ", ";
 		i++;
 	}
-
 	va_end(args);
 	printf("\n");
 }
-
