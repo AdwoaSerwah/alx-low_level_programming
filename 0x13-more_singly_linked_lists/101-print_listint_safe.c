@@ -3,33 +3,33 @@
 #include "lists.h"
 
 /**
- * print_listint_safe - Prints a listint_t linked list safely, handling cycles.
- * @head: A pointer to the first node of the list.
+ * print_listint_safe - Prints a linked list
+ * @head: Pointer
  *
- * Return: The number of nodes in the list.
+ * Return: sk_len
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	const listint_t *current = head;
-	size_t count = 0;
-	const listint_t *visited[1024];
+	const listint_t *pres = head;
+	size_t sk_len = 0;
+	const listint_t *been[1024];
 
-	while (current)
+	while (pres)
 	{
-		size_t i = 0;
+		size_t s = 0;
 
-		while (i < count)
+		while (s < sk_len)
 		{
-			if (current == visited[i])
+			if (pres == been[s])
 			{
-				printf("-> [%p] %d\n", (void *)current, current->n);
+				printf("-> [%p] %d\n", (void *)pres, pres->n);
 				exit(98);
 			}
-		i++;
+		s++;
 		}
-		visited[count++] = current;
-		printf("[%p] %d\n", (void *)current, current->n);
-		current = current->next;
+		been[sk_len++] = pres;
+		printf("[%p] %d\n", (void *)pres, pres->n);
+		pres = pres->next;
 	}
-	return (count);
+	return (sk_len);
 }
