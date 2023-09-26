@@ -21,9 +21,8 @@ size_t free_listint_safe(listint_t **h)
 	{
 		if (been[node_size_sk])
 		{
-			printf("THere\n");
-			/* return (node_size_sk); */
-			continue;
+			*h = NULL;
+			break;
 		}
 		else
 		{
