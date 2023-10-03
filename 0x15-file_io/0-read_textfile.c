@@ -1,5 +1,13 @@
 #include "main.h"
 
+/**
+ * read_textfile - Reads a text file and prints it to standard output
+ * @filename: File name
+ * @letters: Number of letters to read and print
+ *
+ * Return: bt_writtn or 0
+ */
+
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	int desc_skk;
