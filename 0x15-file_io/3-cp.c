@@ -2,36 +2,16 @@
 #include "main.h"
 
 /**
- * cp - Copies contents of a file
- * @orig: Source file
- * @dest_sk: Destination
+ * hd_err - Handles errors
+ * @prog: Program
+ * @msg_sk: Message
  *
  * Return: Nothing
  */
-void cp(int orig, int dest_sk)
+void hd_err(int prog, const char *msg_sk)
 {
-	char my_arr[BUFFER_SIZE];
-	ssize_t bt_rd, bt_wrtt;
-
-	while ((bt_rd = read(orig, my_arr, BUFFER_SIZE)) > 0)
-	{
-		bt_wrtt = write(dest_sk, my_arr, bt_rd);
-		if (bt_wrtt == -1)
-		{
-			dprintf(2, "Error: Can't write to destination file\n");
-			close(orig);
-			close(dest_sk);
-			exit(99);
-		}
-	}
-
-	if (bt_rd == -1)
-	{
-		dprintf(2, "Error: Can't read from source file\n");
-		close(orig);
-		close(dest_sk);
-		exit(98);
-	}
+	dprintf(STDERR_FILENO, "%s\n", msg_sk);
+	exit(prog);
 }
 
 /**
@@ -43,28 +23,40 @@ void cp(int orig, int dest_sk)
  */
 int main(int arg_count, char *avv[])
 {
-	int orig, dest_sk;
+	const char *orig;
+	const char *dest_sk;
+	int f_fr, f_dest;
+	ssize_t bt_rd;
+	char my_arr[BUFFER_SIZE];
 
 	if (arg_count != 3)
 	{
-		dprintf(2, "Usage: %s file_from file_to\n", avv[0]);
-		exit(97);
+		hd_err(97, "Usage: cp orig dest_sk");
 	}
-	orig = open(avv[1], O_RDONLY);
-	if (orig == -1)
+	orig = avv[1];
+	dest_sk = avv[2];
+	f_fr = open(orig, O_RDONLY);
+	if (f_fr == -1)
 	{
-		dprintf(2, "Error: Can't open file %s\n", avv[1]);
-		exit(98);
+		hd_err(98, "Error: Can't read from file");
 	}
-	dest_sk = open(avv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (dest_sk == -1)
+	f_dest = open(dest_sk, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (f_dest == -1)
 	{
-		dprintf(2, "Error: Can't open file %s\n", avv[2]);
-		close(orig);
-		exit(99);
+		hd_err(99, "Error: Can't write to file");
 	}
-	cp(orig, dest_sk);
-	close(orig);
-	close(dest_sk);
+	while ((bt_rd = read(f_fr, my_arr, BUFFER_SIZE)) > 0)
+	{
+		ssize_t bt_wrtt = write(f_dest, my_arr, bt_rd);
+
+		if (bt_wrtt == -1)
+		{
+			hd_err(99, "Error: Can't write to file");
+		}
+	}
+	if (bt_rd == -1)
+		hd_err(98, "Error: Can't read from file");
+	if (close(f_fr) == -1 || close(f_dest) == -1)
+		hd_err(100, "Error: Can't close fd");
 	return (0);
 }
