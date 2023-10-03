@@ -7,7 +7,7 @@
  * @argv: Array of arguments.
  * Return: 0 on success, 98 on failure.
  */
-int main(int argc, char *argv[])
+int main(void)
 {
 	return (0);
 }
