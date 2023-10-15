@@ -83,34 +83,35 @@ void print_header(Elf64_Ehdr *header)
 	unsigned char osabi = header->e_ident[EI_OSABI];
 	int i = 0;
 
-	printf("Magic:   ");
+	printf("ELF Header:\n");
+	printf("%sMagic:   ", "  ");
 	while (i < EI_NIDENT)
 	{
 		printf("%02x ", header->e_ident[i]);
 		i++;
 	}
-	printf("\nClass:                             ");
+	printf("\n%sClass:                             ", "  ");
 	printf("%s\n", header->e_ident[EI_CLASS] == ELFCLASS64 ? "ELF64" : "ELF32");
-	printf("Data:                              ");
+	printf("%sData:                              ", "  ");
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
 	printf("2's complement, little endian\n");
 	else
 	printf("2's complement, big endian\n");
-	printf("Version:                           ");
+	printf("%sVersion:                           ", "  ");
 	printf("%u", header->e_ident[EI_VERSION]);
 	if (header->e_ident[EI_VERSION] == 1)
 		printf(" (current)\n");
 	else
 		printf("\n");
 	osabi_description = get_osabi_desc(osabi);
-	printf("OS/ABI:                            ");
+	printf("%sOS/ABI:                            ", "  ");
 	printf("%s\n", osabi_description);
-	printf("ABI Version:                       ");
+	printf("%sABI Version:                       ", "  ");
 	printf("%u\n", header->e_ident[EI_ABIVERSION]);
 	type_str = get_type(header->e_type);
-	printf("Type:                              ");
+	printf("%sType:                              ", "  ");
 	printf("%s\n", type_str);
-	printf("Entry point address:               ");
+	printf("%sEntry point address:               ", "  ");
 	printf("0x%1x\n", (unsigned int)header->e_entry);
 }
 
@@ -162,6 +163,8 @@ void display_elf_header(const char *filename)
 
 /**
  * main - Entry point
+ * @argc: Argument count
+ * @argv: List
  *
  * Return: 0 on success or exit(98) on failure
  */
