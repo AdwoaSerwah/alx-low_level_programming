@@ -78,7 +78,7 @@ int main(int arg_count, char *avv[])
 {
 	if (arg_count != 3)
 	{
-		dprintf(2, "Usage: %s file_from file_to\n", avv[0]);
+		dprintf(2, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 	cp(avv[1], avv[2]);
