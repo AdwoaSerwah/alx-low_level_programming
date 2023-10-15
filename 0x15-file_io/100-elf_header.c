@@ -101,7 +101,7 @@ void print_header(Elf64_Ehdr *header)
 	printf("2's complement, big endian\n");
 	printf("%sVersion:                           ", "  ");
 	printf("%u", header->e_ident[EI_VERSION]);
-	if (header->e_ident[EI_VERSION] == 1)
+	if (header->e_ident[EI_VERSION] == EV_CURRENT)
 		printf(" (current)\n");
 	else
 		printf("\n");

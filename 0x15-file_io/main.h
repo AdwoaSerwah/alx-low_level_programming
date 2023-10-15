@@ -8,6 +8,7 @@
 
 #define NULL ((void *)0)
 #define BUFFER_SIZE 1024
+#define EV_CURRENT 1
 
 ssize_t read_textfile(const char *filename, size_t letters);
 int append_text_to_file(const char *filename, char *text_content);
