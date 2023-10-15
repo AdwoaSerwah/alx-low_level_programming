@@ -87,7 +87,9 @@ void print_header(Elf64_Ehdr *header)
 	printf("%sMagic:   ", "  ");
 	while (i < EI_NIDENT)
 	{
-		printf("%02x ", header->e_ident[i]);
+		printf("%02x", header->e_ident[i]);
+		if (i < EI_NIDENT - 1)
+			printf(" ");
 		i++;
 	}
 	printf("\n%sClass:                             ", "  ");
