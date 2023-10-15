@@ -104,7 +104,7 @@ void print_header(Elf64_Ehdr *header)
 	else
 		printf("\n");
 	osabi_description = get_osabi_desc(osabi);
-	printf("%sOS/ABI:                            ", "  ");
+	printf("%sOS/ABI:                           ", "  ");
 	printf("%s\n", osabi_description);
 	printf("%sABI Version:                       ", "  ");
 	printf("%u\n", header->e_ident[EI_ABIVERSION]);
