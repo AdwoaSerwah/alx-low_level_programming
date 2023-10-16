@@ -111,7 +111,9 @@ void print_header(Elf64_Ehdr *header)
 	printf("  Magic:   ");
 	while (i < EI_NIDENT)
 	{
-		printf("%02x ", header->e_ident[i]);
+		printf("%02x", header->e_ident[i]);
+		if (i < EI_NIDENT - 1)
+			printf(" ");
 		i++;
 	}
 	printf("\n  Class:                             ");
@@ -139,7 +141,6 @@ void print_header(Elf64_Ehdr *header)
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
 	{
 		header->e_entry = big_endian(header->e_entry);
-		big_endian(header->e_entry);
 	}
 	print_addr(header->e_entry);
 }
