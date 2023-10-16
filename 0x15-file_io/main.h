@@ -20,6 +20,8 @@ void h_error(const char *msg);
 int magic_cmp(const unsigned char *magic, const unsigned char *exp_magic);
 const char *get_osabi_desc(unsigned char osabi);
 const char *get_type(Elf64_Half e_type);
+uint32_t big_endian(uint32_t n);
+void print_addr(uint32_t addr);
 void print_header(Elf64_Ehdr *header);
 void display_elf_header(const char *filename);
 

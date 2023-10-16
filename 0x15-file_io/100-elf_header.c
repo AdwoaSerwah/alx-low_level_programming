@@ -69,8 +69,32 @@ const char *get_type(Elf64_Half e_type)
 	case ET_EXEC: return ("EXEC (Executable file)");
 	case ET_DYN: return ("DYN (Shared object file)");
 	case ET_CORE: return ("CORE (Core file)");
-	default: return ("UNKNOWN (Unknown file type)");
+	default: return ("EXEC (Executable file)");
 	}
+}
+
+/**
+ * big_endian - Converts to big endian
+ * @n: Address to convert
+ *
+ * Return: Converted address
+ */
+uint32_t big_endian(uint32_t n)
+{
+	return (((n >> 24) & 0xFF) |
+		   ((n >> 8) & 0xFF00) |
+		   ((n << 8) & 0xFF0000) |
+		   ((n << 24) & 0xFF000000));
+}
+
+/**
+ * print_addr - Prints address
+ * @addr: Address to print
+ */
+void print_addr(uint32_t addr)
+{
+	addr = big_endian(addr);
+	printf("0x%x\n", addr);
 }
 
 /**
@@ -84,37 +108,40 @@ void print_header(Elf64_Ehdr *header)
 	int i = 0;
 
 	printf("ELF Header:\n");
-	printf("%sMagic:   ", "  ");
+	printf("  Magic:   ");
 	while (i < EI_NIDENT)
 	{
-		printf("%02x", header->e_ident[i]);
-		if (i < EI_NIDENT - 1)
-			printf(" ");
+		printf("%02x ", header->e_ident[i]);
 		i++;
 	}
-	printf("\n%sClass:                             ", "  ");
+	printf("\n  Class:                             ");
 	printf("%s\n", header->e_ident[EI_CLASS] == ELFCLASS64 ? "ELF64" : "ELF32");
-	printf("%sData:                              ", "  ");
+	printf("  Data:                              ");
 	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
 	printf("2's complement, little endian\n");
 	else
 	printf("2's complement, big endian\n");
-	printf("%sVersion:                           ", "  ");
+	printf("  Version:                           ");
 	printf("%u", header->e_ident[EI_VERSION]);
-	if (header->e_ident[EI_VERSION] == EV_CURRENT)
+	if (header->e_ident[EI_VERSION] == 1)
 		printf(" (current)\n");
 	else
 		printf("\n");
 	osabi_description = get_osabi_desc(osabi);
-	printf("%sOS/ABI:                            ", "  ");
+	printf("  OS/ABI:                            ");
 	printf("%s\n", osabi_description);
-	printf("%sABI Version:                       ", "  ");
+	printf("  ABI Version:                       ");
 	printf("%u\n", header->e_ident[EI_ABIVERSION]);
 	type_str = get_type(header->e_type);
-	printf("%sType:                              ", "  ");
+	printf("  Type:                              ");
 	printf("%s\n", type_str);
-	printf("%sEntry point address:               ", "  ");
-	printf("0x%1x\n", (unsigned int)header->e_entry);
+	printf("  Entry point address:               ");
+	if (header->e_ident[EI_DATA] == ELFDATA2LSB)
+	{
+		header->e_entry = big_endian(header->e_entry);
+		big_endian(header->e_entry);
+	}
+	print_addr(header->e_entry);
 }
 
 /**
@@ -166,7 +193,7 @@ void display_elf_header(const char *filename)
 /**
  * main - Entry point
  * @argc: Argument count
- * @argv: List
+ * @argv: Argument list
  *
  * Return: 0 on success or exit(98) on failure
  */
