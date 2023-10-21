@@ -4,33 +4,23 @@
  * main - Prints the first 98 Fibonacci numbers
  *
  * Return: Always 0 (Success)
- *#include <stdio.h>
+ */
+
 int main(void)
 {
-	unsigned long int a = 1;
-	unsigned long int b = 2;
-	unsigned long int c = 0;
+	unsigned long a = 1, b = 2, sum = 0, i = 2;
 
-	printf("%lu, %lu, ", a, b);
+	printf("%lu, %lu", a, b);
 
-	while (c < 2942588539565114921ul)
+	while (i < 98)
 	{
-		c = a + b;
+		sum = a + b;
+		printf(", %lu", sum);
 		a = b;
-		b = c;
-
-		if (c <= 2942588539565114921ul)
-		{
-			if (c == 2942588539565114921ul)
-			{	
-				printf("%lu\n", c);
-			}
-			else
-			{
-				printf("%lu, ", c);
-			}
-		}
+		b = sum;
+		i++;
 	}
+	printf("\n");
 
 	return (0);
 }
