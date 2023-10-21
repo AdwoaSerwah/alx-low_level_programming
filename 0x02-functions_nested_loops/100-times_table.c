@@ -10,30 +10,49 @@ int _putchar(char c);
  */
 void print_times_table(int n)
 {
-	int i = 0, j, result;
+	int row = 0, column, product, exponent = 1, temp, value, rem;
 
-	if (n < 0 || n > 15)
-		return;
-
-	while (i <= n)
+	if (n >= 0 && n <= 15)
 	{
-		j = 0;
-		while (j <= n)
+		while (row <= n)
 		{
-			result = i * j;
-			_putchar('0'); /* Print the first element */
-			if (j != 0)
+			column = 0;
+			while (column <= n)
 			{
-				_putchar(',');
-				_putchar(' ');
-				if (result < 10)
+				product = row * column;
+				if (column > 0)
+				{
+					_putchar(',');
 					_putchar(' ');
-				_putchar('0' + result / 10);
-				_putchar('0' + result % 10);
+					if (product <= 99)
+						_putchar(' ');
+					if (product <= 9)
+						_putchar(' ');
+				}
+				if (product <= 9)
+					_putchar(product + '0');
+				else
+				{
+					temp = product / 10;
+					while (temp != 0)
+					{
+						exponent = exponent * 10;
+						temp = temp / 10;
+					}
+					rem = product;
+					while (exponent != 0)
+					{
+						value = rem / exponent;
+						_putchar(value + '0');
+						rem = rem % exponent;
+						exponent /= 10;
+					}
+					exponent = 1;
+				}
+				column++;
 			}
-			j++;
+			_putchar('\n');
+			row++;
 		}
-		_putchar('\n');
-		i++;
 	}
 }
