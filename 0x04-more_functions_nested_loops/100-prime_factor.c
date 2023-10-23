@@ -10,7 +10,7 @@
  */
 int main(void)
 {
-	unsigned long num = 1231952, i = 2, prime_fact = 1, temp = num;
+	unsigned long num = 612852475143, i = 2, prime_fact = 1, temp = num;
 
 	while (i <= num)
 	{
