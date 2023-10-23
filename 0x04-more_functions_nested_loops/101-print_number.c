@@ -6,8 +6,8 @@
  */
 void print_number(int n)
 {
-	int divisor = 1;
-	int temp = n;
+	int exponent = 1;
+	int temp;
 
 	if (n < 0)
 	{
@@ -15,23 +15,25 @@ void print_number(int n)
 		n = -n;
 	}
 
-	while (temp > 9 || temp < -9)
+	if (n > 9 || n < 0)
 	{
-		temp /= 10;
-		divisor *= 10;
-	}
+		temp = n / 10;
 
-	if (n == 0)
-	{
-		_putchar('0');
-	}
-	else
-	{
-		while (divisor >= 1)
+		while (temp != 0)
 		{
-			_putchar((n / divisor) + '0');
-			n %= divisor;
-			divisor /= 10;
+			exponent = exponent * 10;
+			temp /= 10;
+		}
+		temp = n;
+		while (exponent != 0)
+		{
+			int quotient = temp / exponent;
+
+			_putchar(quotient + '0');
+			temp = temp % exponent;
+			exponent = exponent / 10;
 		}
 	}
+	else
+		_putchar(n + '0');
 }
