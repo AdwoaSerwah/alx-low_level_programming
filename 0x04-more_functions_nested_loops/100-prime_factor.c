@@ -10,11 +10,26 @@
  */
 int main(void)
 {
-	long number = 612852475143L;
+	unsigned long num = 1231952, i = 2, prime_fact = 1, temp = num;
 
-	int result = number + 2;
-
-	printf("%d\n", result);
-
+	while (i <= num)
+	{
+		if (num % i == 0)
+		{
+			num = num / i;
+			if (i > prime_fact)
+			{
+				prime_fact = i;
+			}
+			i = 2;
+		}
+		else
+			i++;
+	}
+	if (prime_fact == 1)
+	{
+		prime_fact = temp;
+	}
+	printf("%lu\n", prime_fact);
 	return (0);
 }
