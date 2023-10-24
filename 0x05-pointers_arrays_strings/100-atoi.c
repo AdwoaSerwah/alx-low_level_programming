@@ -10,30 +10,30 @@ int _atoi(char *s)
 {
 	int sign = 1;
 	int result = 0;
-	int i = 0;
 
-	while (s[i] == '-' || s[i] == '+')
+	while (*s == '-' || *s == '+')
 	{
-		if (s[i] == '-')
+		if (*s == '-')
 			sign *= -1;
-		i++;
+		s++;
 	}
-	while (s[i] && (s[i] < '0' || s[i] > '9'))
+	while (*s && (*s < '0' || *s > '9'))
 	{
-		if (s[i] == '-')
+		if (*s == '-')
 			sign *= -1;
-		i++;
+		s++;
 	}
-	while (s[i] >= '0' && s[i] <= '9')
+	while (*s >= '0' && *s <= '9')
 	{
-		int digit = s[i] - '0';
+		int digit = *s - '0';
+
 		if ((result > 0 && result > (INT_MAX - digit) / 10) ||
 			(result < 0 && result < (INT_MIN + digit) / 10))
 		{
 			return (sign == 1) ? (INT_MAX) : (INT_MIN);
 		}
 		result = result * 10 + (sign * digit);
-		i++;
+		s++;
 	}
 	return result;
 }
