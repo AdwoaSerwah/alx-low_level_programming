@@ -8,32 +8,39 @@
  */
 int _atoi(char *s)
 {
-	int sign = 1;
-	int result = 0;
+	int inner_count = 0, expo = 1, num = 0, is_neg, is_num;
 
-	while (*s == '-' || *s == '+')
+	while (*s != '\0')
 	{
-		if (*s == '-')
-			sign *= -1;
-		s++;
-	}
-	while (*s && (*s < '0' || *s > '9'))
-	{
-		if (*s == '-')
-			sign *= -1;
-		s++;
-	}
-	while (*s >= '0' && *s <= '9')
-	{
-		int digit = *s - '0';
-
-		if ((result > 0 && result > (INT_MAX - digit) / 10) ||
-			(result < 0 && result < (INT_MIN + digit) / 10))
+		is_num = (*s >= '0' && *s <= '9');
+		is_neg = *s == '-' && (*(s + 1) >= '0' && *(s + 1) <= '9');
+		if (is_num || is_neg)
 		{
-			return ((sign == 1) ? (INT_MAX) : (INT_MIN));
+			if (is_neg)
+				is_num = 1;
+			while (is_num && *s != '\0')
+			{
+				inner_count++;
+				s++;
+				is_num = (*s >= '0' && *s <= '9');
+			}
+			s--;
+			while (inner_count > 0)
+			{
+				if (*(s - 1) == '-' && inner_count == 2)
+				{
+					num = ((*s - '0') * -1) * expo - num;
+					return (num);
+				}
+				num = ((*s - '0') * expo) + num;
+				if (expo < 1000000000)
+					expo = expo * 10;
+				inner_count--;
+				s--;
+			}
+			return (num);
 		}
-		result = result * 10 + (sign * digit);
 		s++;
 	}
-	return (result);
+	return (num);
 }
