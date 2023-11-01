@@ -8,16 +8,15 @@
  */
 int _atoi(char *s)
 {
-	int inner_count = 0, expo = 1, num = 0, is_neg, is_num;
+	int inner_count = 0, expo = 1, num = 0, is_num, neg_sign = 1;
 
 	while (*s != '\0')
 	{
+		if (*s == '-')
+			neg_sign = neg_sign * (-1);
 		is_num = (*s >= '0' && *s <= '9');
-		is_neg = *s == '-' && (*(s + 1) >= '0' && *(s + 1) <= '9');
-		if (is_num || is_neg)
+		if (is_num)
 		{
-			if (is_neg)
-				is_num = 1;
 			while (is_num && *s != '\0')
 			{
 				inner_count++;
@@ -27,7 +26,7 @@ int _atoi(char *s)
 			s--;
 			while (inner_count > 0)
 			{
-				if (*(s - 1) == '-' && inner_count == 2)
+				if (neg_sign == -1 && inner_count == 1)
 				{
 					num = ((*s - '0') * -1) * expo - num;
 					return (num);
