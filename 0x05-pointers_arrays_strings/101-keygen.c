@@ -13,7 +13,7 @@ int main(void)
 	char str[23];
 	int i = 0;
 	int len = sizeof(str) - 1;
-	int sum = 0;
+	/* int sum = 0; */
 
 	srand(time(NULL));
 	while (i < len)
@@ -24,13 +24,13 @@ int main(void)
 		i++;
 	}
 	str[i] = '\0';
-	/*printf("First loop: %s\n", str);*/
+	/* printf("First loop: %s\n", str); */
 	i = 0;
 
 	while (i < len)
 	{
 		str[i] = '~';
-		sum = sum + (int)(str[i]);
+		/* sum = sum + (int)(str[i]); */
 		i++;
 	}
 	/* printf("sum: %d\n", sum); */
