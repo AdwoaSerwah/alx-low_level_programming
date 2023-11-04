@@ -10,30 +10,26 @@
  */
 int main(void)
 {
-	char str[23];
-	int i = 0;
-	int len = sizeof(str) - 1;
-	/* int sum = 0; */
+	int i = 0, actual_sum = 0, rem, expected_sum = 2772;
+	char str[64];
 
 	srand(time(NULL));
-	while (i < len)
+	while (i < 64)
 	{
-		char ch = (char)(rand() % 128);
-
-		str[i] = ch;
+		str[i] = (rand() % 78) + '0';
+		printf("%c", str[i]);
+		actual_sum = actual_sum + str[i];
+		if ((expected_sum - actual_sum) < 78)
+		{
+			rem = expected_sum - actual_sum;
+			actual_sum = actual_sum + rem;
+			str[i] = rem;
+			printf("%c", str[i]);
+			break;
+		}
 		i++;
 	}
-	str[i] = '\0';
 	/* printf("First loop: %s\n", str); */
-	i = 0;
-
-	while (i < len)
-	{
-		str[i] = '~';
-		/* sum = sum + (int)(str[i]); */
-		i++;
-	}
-	/* printf("sum: %d\n", sum); */
-	printf("%s", str);
+	/* printf("actual_sum: %d\n", actual_sum); */
 	return (0);
 }
