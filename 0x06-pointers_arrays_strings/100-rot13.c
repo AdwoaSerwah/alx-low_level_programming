@@ -1,29 +1,6 @@
 #include "main.h"
 
 /**
- * _strcat - Concatenates two strings.
- * @dest: The destination string.
- * @src: The source string.
- *
- * Return: A pointer to the resulting string dest.
- */
-char *_strcat(char *dest, char *src)
-{
-	char *ptr = dest;
-
-	while (*ptr != '\0')
-		ptr++;
-	while (*src != '\0')
-	{
-		*ptr = *src;
-		ptr++;
-		src++;
-	}
-	*ptr = '\0';
-	return (dest);
-}
-
-/**
  * rot13 - Encodes a string using ROT13 cipher.
  * @str: The input string.
  *
@@ -32,19 +9,24 @@ char *_strcat(char *dest, char *src)
 char *rot13(char *str)
 {
 	int i = 0;
-	char s1[100] = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLM";
-	char s2[] = "abcdefghijklmnopqrstuvwxyzabcdefghijklm";
+	char s[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+	'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+	'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+	'I', 'J', 'K', 'L', 'M', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+	'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+	'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+	'i', 'j', 'k', 'l', 'm'
+	};
 
-	_strcat(s1, s2);
 	while (str[i] != '\0')
 	{
 		int j = 0;
 
-		while (j <= 77)
+		while (s[j] != '\0')
 		{
-			if (str[i] == s1[j])
+			if (str[i] == s[j])
 			{
-				str[i] = s1[j + 13];
+				str[i] = s[j + 13];
 				break;
 			}
 			j++;
