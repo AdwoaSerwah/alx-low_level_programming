@@ -6,12 +6,26 @@
  */
 void print_number(int n)
 {
-	if (n < 0)
+	int temp = n / 10, exponent = 1, quotient = 0;
+
+	if (temp < 0)
 	{
 		_putchar('-');
-		n = -n;
+		temp = -temp;
 	}
-	if (n / 10 != 0)
-		print_number(n / 10);
-	_putchar(n % 10 + '0');
+	while (temp != 0)
+	{
+		exponent *= 10;
+		temp = temp / 10;
+	}
+	temp = n;
+	while (exponent > 0)
+	{
+		quotient = temp / exponent;
+		if (quotient < 0)
+			quotient = -quotient;
+		_putchar(quotient + '0');
+		temp = temp % exponent;
+		exponent /= 10;
+	}
 }
