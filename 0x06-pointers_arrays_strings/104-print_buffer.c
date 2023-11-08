@@ -7,40 +7,42 @@
  */
 void print_buffer(char *b, int size)
 {
-	int i = 0;
+	int i = 0, j = 0, addr = 0, overflow;
 
-	while (i < size)
+	if (size <= 0)
 	{
-		int j = 0;
-
-		printf("%08x: ", i);
-		while (j < 10)
+		putchar('\n');
+		return;
+	}
+	size--;
+	while (i <= size)
+	{
+		printf("%08x: ", addr);
+		j = 0, overflow = 0;
+		while (j <= 9)
 		{
-			if (i + j < size)
-				printf("%02x", b[i + j]);
+			if (i <= size)
+				printf("%02x", b[i]);
 			else
+			{
 				printf("  ");
-			if (j % 2 != 0)
+				overflow++;
+			}
+			if (j % 2 == 1)
 				printf(" ");
-			j++;
+			i++, j++;
 		}
-		j = 0;
-		while (j < 10)
+		i = i - j;
+		j = j - overflow;
+		while (j > 0)
 		{
-			if (i + j < size)
-			{
-				if (b[i + j] >= 32 && b[i + j] <= 126)
-					printf("%c", b[i + j]);
-				else
-					printf(".");
-			}
+			if ((b[i] >= 0 && b[i] <= 31) || b[i] == 127)
+				printf(".");
 			else
-			{
-				printf(" ");
-			}
-			j++;
+				printf("%c", b[i]);
+			i++, j--;
 		}
 		printf("\n");
-		i += 10;
+		addr = addr + 10;
 	}
 }
