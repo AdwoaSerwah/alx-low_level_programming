@@ -85,7 +85,6 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
 
 	new_node->next = ht->array[index];
 	ht->array[index] = new_node;
-
 	return (1);
 }
 
@@ -95,7 +94,7 @@ int shash_table_set(shash_table_t *ht, const char *key, const char *value)
  * @ht: The sorted hash table
  * @key: The key to search for
  *
- * Return: The value associated with the key, or NULL if key couldn’t be found
+ * Return: The value associated with the key, or NULL if not found
  */
 char *shash_table_get(const shash_table_t *ht, const char *key)
 {
