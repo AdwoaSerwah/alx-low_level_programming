@@ -6,9 +6,9 @@ RM=rm -f
 
 .PHONY: clean oclean fclean re $(NAME)
 
-re: oclean $(NAME)
-
 all: $(NAME)
+
+re: oclean $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
