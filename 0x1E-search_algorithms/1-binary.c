@@ -55,13 +55,8 @@ int bin_search(int *array, size_t size, int value, size_t i, size_t j)
  */
 int binary_search(int *array, size_t size, int value)
 {
-	int index = -1;
-
-	size = size - 1;
-
 	if (array == NULL)
-		return (index);
+		return (-1);
 
-	index = bin_search(array, size, value, 0, size);
-	return (index);
+	return (bin_search(array, size - 1, value, 0, size - 1));
 }
